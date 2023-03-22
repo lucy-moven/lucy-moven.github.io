@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Card Details</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inria Serif|Poppins-Bold">
+  <style>
+    html,
+    body {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Trebuchet MS', sans-serif;
+      justify-content: center;
+      padding-top: 10px;
+      width: 100%;
+    }
+
+    #card {
+      background-color: #35445b;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      height: 205px;
+      width: 90%;
+    }
+
+    #top {
+      height: 35px;
+    }
+
+    #stripe {
+      background-color: #000;
+      height: 35px;
+    }
+
+    #content {
+      height: 160px;
+      width: 100%;
+    }
+
+    #middle {
+      align-items: center;
+      flex-direction: row;
+      display: flex;
+      margin-top: 35px;
+      height: 85px;
+      width: 100%;
+    }
+
+    #cvv {
+      font-size: 14px;
+    }
+
+    #cvv-group {
+      align-items: center;
+      display: flex;
+      height: 20px;
+      margin-left: 25px;
+      flex-direction: row;
+      width: 50%;
+    }
+
+    #details-group {
+      display: flex;
+      height: 85px;
+      width: 72%;
+      flex-direction: column;
+    }
+
+    #name {
+      font-size: 14px;
+      margin-left: 25px;
+      text-transform: uppercase;
+    }
+
+    #exp {
+      font-size: 8px;
+      width: 30px;
+      text-transform: uppercase;
+    }
+
+    #exp-group {
+      display: flex;
+      flex-direction: row;
+      height: 85px;
+      margin-top: 20px;
+      width: 28%;
+    }
+
+    #display-card-cvv {
+      align-items: flex-start;
+      display: flex;
+      margin-left: 5px;
+      font-size: 14px;
+    }
+
+    #display-card-exp {
+      display: flex;
+      height: 100%;
+    }
+
+    #display-card-pan {
+      display: flex;
+      height: 20px;
+      justify-content: left;
+      padding: 10px 0px 10px;
+      width: 100%;
+      margin-left: 25px;
+      letter-spacing: 1px;
+      font-size: 18px;
+    }
+
+    .text {
+      font-family: 'Barlow', sans-serif;
+      color: #fff;
+    }
+
+    #copy-card-pan {
+      display: flex;
+      height: 250px;
+      position: absolute;
+      width: 90%;
+    }
+
+    #bold-copy-text { 
+      font-family: 'Poppins-Bold', sans-serif;
+    }
+
+    #copy-text {
+      color: #222222;
+      font-family: 'Inria Serif', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="card">
+    <div id="top"></div>
+    <div id="stripe"></div>
+    <div id="content">
+      <div id="middle">
+        <div id="details-group">
+          <div id="display-card-pan" class="text">{{PAN}}</div>
+          <div id="name" class="text">{{FirstName}} {{LastName}}</div>
+          <div id="cvv-group">
+            <div id="cvv" class="text">CVV</div>
+            <div id="display-card-cvv" class="text">{{CVV}}</div>
+          </div>
+        </div>
+        <div id="exp-group">
+          <div id="exp" class="text">Good Thru</div>
+          <div id="display-card-exp" class="text">{{ExpireMonth}}/{{ExpireYear}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p id="copy-text"><b id="bold-copy-text">Press anywhere</b> to copy card number</p>
+  
+
+  <script>
+    window.onload = function(){
+      const displayPan = document.getElementById("display-card-pan");
+      const formattedPan = displayPan.innerHTML.replace(/.{4}/g, '$&  ');
+      displayPan.innerHTML = formattedPan;
+    }
+
+    function copyPAN() {
+      var copyText = document.getElementById("display-card-pan");
+      const PAN = copyText.innerHTML.replace(/\s/g, '');
+
+      var parentWindow = window.parent;
+      parentWindow.postMessage(PAN, 'https://mock.moven.com');
+    }
+    document.body.addEventListener('click', copyPAN)
+  </script>
+</body>
+
+</html>
