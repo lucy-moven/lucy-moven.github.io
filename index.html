@@ -171,8 +171,10 @@
       var copyText = document.getElementById("display-card-pan");
       const PAN = copyText.innerHTML.replace(/\s/g, '');
 
+      navigator.clipboard.writeText(PAN);
+
       var parentWindow = window.parent;
-      parentWindow.postMessage(PAN, 'https://mock.moven.com');
+      parentWindow.postMessage(true, 'https://mock.moven.com');
     }
     document.body.addEventListener('click', copyPAN)
   </script>
