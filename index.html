@@ -171,6 +171,8 @@
       var copyText = document.getElementById("display-card-pan");
       const PAN = copyText.innerHTML.replace(/\s/g, '');
 
+      document.execCommand('copy', false, PAN)
+
       navigator.clipboard.writeText(PAN);
 
       var parentWindow = window.parent;
