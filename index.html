@@ -173,6 +173,7 @@
       
       window.navigator.permissions.query({name: "clipboard-write"}).then((result) => {
         window.parent.postMessage(result.state, '*');
+        window.ReactNativeWebView.postMessage(result.state)
        });
 
       window.navigator.clipboard.writeText(PAN).then(function () {
