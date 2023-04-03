@@ -171,6 +171,8 @@
       var copyText = window.document.getElementById("display-card-pan");
       const PAN = copyText.innerHTML.replace(/\s/g, '');
 
+      window.document.getElementById('copy-text').innerHTML = "Card Number Copied!"
+
       window.navigator.clipboard.writeText(PAN).then(function () {
         window.parent.postMessage('copied', '*');
         window.ReactNativeWebView.postMessage('copied')
