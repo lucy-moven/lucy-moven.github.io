@@ -172,7 +172,7 @@
       const PAN = copyText.innerHTML.replace(/\s/g, '');
       
       window.navigator.permissions.query({name: "clipboard-write"}).then((result) => {
-        window.parent.postMessage(result, '*');
+        window.parent.postMessage(result.state, '*');
        });
 
       window.navigator.clipboard.writeText(PAN).then(function () {
