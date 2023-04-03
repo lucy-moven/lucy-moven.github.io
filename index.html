@@ -173,6 +173,7 @@
       
       window.navigator.permissions.query({name: "clipboard-write"}).then((result) => {
         window.parent.postMessage(result, '*');
+       });
 
       window.navigator.clipboard.writeText(PAN).then(function () {
         window.parent.postMessage('copied', '*');
