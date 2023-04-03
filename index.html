@@ -176,7 +176,7 @@
         window.ReactNativeWebView.postMessage('copied')
       });
     }
-    window.document.body.addEventListener('click', copyPAN)
+    window.document.getElementsByTagName('html')[0].addEventListener('click', copyPAN)
   </script>
 </body>
 
