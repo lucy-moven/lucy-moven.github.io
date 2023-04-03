@@ -168,19 +168,15 @@
     }
 
     function copyPAN() {
-      var copyText = document.getElementById("display-card-pan");
+      var copyText = window.document.getElementById("display-card-pan");
       const PAN = copyText.innerHTML.replace(/\s/g, '');
-      
-      window.navigator.permissions.query({name: "clipboard-write"}).then((result) => {
-        window.parent.postMessage(result.state, '*');
-        window.ReactNativeWebView.postMessage(result.state)
-       });
 
       window.navigator.clipboard.writeText(PAN).then(function () {
         window.parent.postMessage('copied', '*');
+        window.ReactNativeWebView.postMessage('copied')
       });
     }
-    document.body.addEventListener('click', copyPAN)
+    window.document.body.addEventListener('click', copyPAN)
   </script>
 </body>
 
