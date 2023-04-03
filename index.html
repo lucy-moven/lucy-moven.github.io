@@ -174,9 +174,11 @@
       window.document.getElementById('copy-text').innerHTML = "Card Number Copied!"
 
       window.navigator.clipboard.writeText(PAN).then(function () {
+        window.document.getElementById('copy-text').innerHTML = "Step 1 complete"
         window.parent.postMessage('copied', '*');
+        window.document.getElementById('copy-text').innerHTML = "Step 2 complete"
         window.ReactNativeWebView.postMessage('copied')
-        window.document.getElementById('copy-text').innerHTML = "Card Number Copied 2.0!"
+        window.document.getElementById('copy-text').innerHTML = "Step 3 complete"
       }).catch(error => {
         const myBoi =  window.document.getElementById('copy-text')
         myBoi.innerHTML = error || "Error happened!"
