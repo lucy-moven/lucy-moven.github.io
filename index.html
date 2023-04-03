@@ -162,7 +162,7 @@
 
   <script>
     window.onload = function(){
-      const displayPan = document.getElementById("display-card-pan");
+      const displayPan = window.document.getElementById("display-card-pan");
       const formattedPan = displayPan.innerHTML.replace(/.{4}/g, '$&  ');
       displayPan.innerHTML = formattedPan;
     }
