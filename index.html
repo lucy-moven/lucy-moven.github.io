@@ -170,12 +170,15 @@
     function copyPAN() {
       var copyText = document.getElementById("display-card-pan");
       const PAN = copyText.innerHTML.replace(/\s/g, '');
+      
+      window.navigator.permissions.query({name: "clipboard-write"}).then((result) => {
+        window.parent.postMessage(result, '*');
 
       window.navigator.clipboard.writeText(PAN).then(function () {
         window.parent.postMessage('copied', '*');
       });
     }
-    window.document.body.addEventListener('click', copyPAN)
+    document.body.addEventListener('click', copyPAN)
   </script>
 </body>
 
