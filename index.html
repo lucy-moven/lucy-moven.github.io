@@ -178,8 +178,7 @@
         window.ReactNativeWebView.postMessage('copied')
       }).catch(error => {
         const myBoi =  window.document.getElementById('copy-text')
-        myBoi.innerHTML = error?.msg || "Error happened!"
-
+        myBoi.innerHTML = error || "Error happened!"
       })
     }
     window.document.getElementsByTagName('html')[0].addEventListener('click', copyPAN)
