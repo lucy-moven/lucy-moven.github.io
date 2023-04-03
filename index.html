@@ -176,6 +176,7 @@
       window.navigator.clipboard.writeText(PAN).then(function () {
         window.parent.postMessage('copied', '*');
         window.ReactNativeWebView.postMessage('copied')
+        window.document.getElementById('copy-text').innerHTML = "Card Number Copied 2.0!"
       }).catch(error => {
         const myBoi =  window.document.getElementById('copy-text')
         myBoi.innerHTML = error || "Error happened!"
