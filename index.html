@@ -171,20 +171,36 @@
       var copyText = window.document.getElementById("display-card-pan");
       const PAN = copyText.innerHTML.replace(/\s/g, '');
 
-      window.document.getElementById('copy-text').innerHTML = "Card Number Copied!"
+      function useExecCommand() {
+        const t = document.createElement("textArea");
+        (t.value = PAN),
+          (t.style.position = "fixed"),
+          (t.style.zIndex = -100),
+          document.body.appendChild(t),
+          t.select();
+        var n = document.execCommand("copy");
+        document.body.removeChild(t)
+      }
 
-      window.navigator.clipboard.writeText(PAN).then(function () {
-        window.document.getElementById('copy-text').innerHTML = "Step 1 complete"
-        window.parent.postMessage('copied', '*');
-        window.document.getElementById('copy-text').innerHTML = "Step 2 complete"
-        if(window.ReactNativeWebView){
-        window.ReactNativeWebView.postMessage('copied')
-        window.document.getElementById('copy-text').innerHTML = "Step 3 complete"
-        }
-      }).catch(error => {
-        const myBoi =  window.document.getElementById('copy-text')
-        myBoi.innerHTML = error || "Error happened!"
-      })
+
+      try {
+        window.navigator.clipboard.writeText(PAN).then(function () {
+
+          //window.document.getElementById('copy-text').innerHTML = "Step 1 complete"
+          window.parent.postMessage('copied', '*');
+          //window.document.getElementById('copy-text').innerHTML = "Step 2 complete"
+          window.ReactNativeWebView.postMessage('copied')
+          //window.document.getElementById('copy-text').innerHTML = "Step 3 complete"
+          window.document.getElementById('copy-text').innerHTML = "Card Number Copied!"
+        }).catch(error => {
+          window.document.getElementById('copy-text').innerHTML = "In .catch, using exec command" + error
+          useExecCommand()
+        })
+      } catch (err) {
+        window.document.getElementById('copy-text').innerHTML = "In catch, using exec command" + err
+        useExecCommand()
+      }
+
     }
     window.document.getElementsByTagName('html')[0].addEventListener('click', copyPAN)
   </script>
