@@ -125,7 +125,7 @@
       width: 90%;
     }
 
-    #bold-copy-text { 
+    #bold-copy-text {
       font-family: 'Poppins-Bold', sans-serif;
     }
 
@@ -158,17 +158,17 @@
     </div>
   </div>
   <p id="copy-text"><b id="bold-copy-text">Press anywhere</b> to copy card number</p>
-  
+
 
   <script>
-    window.onload = function(){
-      const displayPan = window.document.getElementById("display-card-pan");
+    window.onload = function () {
+      const displayPan = document.getElementById("display-card-pan");
       const formattedPan = displayPan.innerHTML.replace(/.{4}/g, '$&  ');
       displayPan.innerHTML = formattedPan;
     }
 
     function copyPAN() {
-      var copyText = window.document.getElementById("display-card-pan");
+      var copyText = document.getElementById("display-card-pan");
       const PAN = copyText.innerHTML.replace(/\s/g, '');
 
       function useExecCommand() {
@@ -180,29 +180,21 @@
           t.select();
         var n = document.execCommand("copy");
         document.body.removeChild(t)
+        window.parent.postMessage('copied', '*');
       }
-
-
       try {
-        window.navigator.clipboard.writeText(PAN).then(function () {
-
-          //window.document.getElementById('copy-text').innerHTML = "Step 1 complete"
-          window.parent.postMessage('copied', '*');
-          //window.document.getElementById('copy-text').innerHTML = "Step 2 complete"
-          window.ReactNativeWebView.postMessage('copied')
-          //window.document.getElementById('copy-text').innerHTML = "Step 3 complete"
-          window.document.getElementById('copy-text').innerHTML = "Card Number Copied!"
-        }).catch(error => {
-          window.document.getElementById('copy-text').innerHTML = "In .catch, using exec command" + error
-          useExecCommand()
-        })
+        window.navigator.clipboard.writeText(PAN)
+          .then(function () {
+            window.parent.postMessage('copied', '*');
+          })
+          .catch((err) => {
+            useExecCommand()
+          })
       } catch (err) {
-        window.document.getElementById('copy-text').innerHTML = "In catch, using exec command" + err
         useExecCommand()
       }
-
     }
-    window.document.getElementsByTagName('html')[0].addEventListener('click', copyPAN)
+    document.body.addEventListener('click', copyPAN)
   </script>
 </body>
 
