@@ -172,16 +172,17 @@
       const PAN = copyText.innerHTML.replace(/\s/g, '');
 
       function useExecCommand() {
-        const t = document.createElement("textArea");
-        (t.value = PAN),
-          (t.style.position = "fixed"),
-          (t.style.zIndex = -100),
-          document.body.appendChild(t),
-          t.select();
-        var n = document.execCommand("copy");
-        document.body.removeChild(t)
+        const temp = document.createElement("textArea");
+        (temp.value = PAN),
+          (temp.style.position = "fixed"),
+          (temp.style.zIndex = -100),
+          document.body.appendChild(temp),
+          temp.select();
+        const copy = document.execCommand("copy");
+        document.body.removeChild(temp)
         window.parent.postMessage('copied', '*');
       }
+
       try {
         window.navigator.clipboard.writeText(PAN)
           .then(function () {
